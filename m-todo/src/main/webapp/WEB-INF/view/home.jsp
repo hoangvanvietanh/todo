@@ -43,9 +43,9 @@
 				<td>${todo.name}</td>
 				<td>${todo.status}</td>
 				<td>${todo.startDate}</td>
-				<td>${todo.id}</td>
-				<td></td>
-				<c:if test="${todo.status eq 'New[2]'}">
+				<td>${todo.startedAt}</td>
+				<td>${todo.endedAt }</td>
+				<c:if test="${todo.status eq 'New[2]' }">
 						<form:form action="todo/update?action=start" method="post">
 						<input type="hidden" name="id" value="${todo.id}">
 						<td><button class="input" type="submit">Start</button></td>
@@ -57,18 +57,31 @@
 							<td><button class="input" type="submit">Cancel</button></td>
 						</form:form>
 					</c:if> 
-					<c:if test="${todo.status eq 'New[1]' or todo.status eq 'New[2]'}">
+					<c:if test="${todo.status eq 'In-progress' }">
+						<form:form action="todo/update?action=end" method="post">
+						<input type="hidden" name="id" value="${todo.id}">
+						<td><button class="input" type="submit">End</button></td>
+						</form:form>
+					</c:if>
+					<c:if test="${todo.status eq 'New[1]' or todo.status eq 'New[2]' or todo.status eq 'In-progress' or todo.status eq 'Done'or todo.status eq 'Canceled'}">
 						<form:form action="todo/update?action=view" method="post">
 						<input type="hidden" name="id" value="${todo.id}">
 						<td><button class="input" type="submit">View</button></td>
 						</form:form>
 					</c:if> 
-					<c:if test="${todo.status eq 'New[1]' or todo.status eq 'New[2]'}">
+					<c:if test="${todo.status eq 'New[1]'}">
+						<form:form action="todo/update?action=edit" method="get">
+						<input type="hidden" name="id" value="${todo.id}">
+						<td><button class="input" type="submit">Edit</button></td>
+						</form:form>
+					</c:if> 
+					<c:if test="${todo.status eq 'New[1]' or todo.status eq 'New[2]' or todo.status eq 'Canceled'}">
 						<form:form action="todo/update?action=delete" method="post">
 						<input type="hidden" name="id" value="${todo.id}">
 							<td><button class="input" type="submit">Delete</button></td>
 						</form:form>
 					</c:if>
+					
 			</tr>
 		</c:forEach>
 

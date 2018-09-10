@@ -1,5 +1,10 @@
 package com.green.spring.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +46,7 @@ public class ToDoController {
 	
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public String handleCreate(@ModelAttribute("todo") ToDoModel todo, 
-			BindingResult result, Model model) {
+			BindingResult result, Model model) throws ParseException {
 		
 		// validate inputed contact info and convert to entity
 		if (result.hasErrors()) {
@@ -56,42 +61,60 @@ public class ToDoController {
 		return "redirect:/todo";
 	}
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
-	public String update(@RequestParam(name="id") int id,@RequestParam(name="action") String action, Model model) {
+	public String update(@RequestParam(name="id") int id, Model model) {
 		
-		System.out.println("hhhshhhhhhhhhhhhhhAc: " +action);
 		ToDo c = homeService.findToDo(id);
 		if (c == null) {
 			return "redirect:/todo";
 		}
-		System.out.println("Vietttttttttttttttttttttttttttttttttttttttttttttttttttttt"+id);
 		ToDoModel toDoModel = new ToDoModel();
 		toDoModel.formtoDo(c);
 		
-		model.addAttribute("contact", toDoModel);
+		model.addAttribute("todo", toDoModel);
 		model.addAttribute("mode", "update");
-		
-		return "contact-detail";
+
+		return "edit";
 	}
 	
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public String handleUpdate(@RequestParam(name="id") int id,
 			@ModelAttribute("todo") ToDo todo, @RequestParam(name="action") String action,
 			BindingResult result, Model model) {
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+		LocalDateTime now = LocalDateTime.now();
+		String time = dtf.format(now);
+		
 		if(action.equals("start"))
 		{
-			
+			ToDo toDo = homeService.findToDo(id);
+			toDo.setStartedAt(time);
+			toDo.setStatus("In-progress");
+			homeService.updateToDo(toDo);
 		}
 		else if(action.equals("cancel"))
 		{
-			
+			ToDo toDo = homeService.findToDo(id);
+			toDo.setStatus("Canceled");
+			homeService.updateToDo(toDo);
+		}
+		else if(action.equals("end"))
+		{
+			ToDo toDo = homeService.findToDo(id);
+			toDo.setEndedAt(time);
+			toDo.setStatus("Done");
+			homeService.updateToDo(toDo);
 		}
 		else if(action.equals("view"))
 		{
 			
 		}
+		else if(action.equals("edit"))
+		{
+			homeService.updateToDo(todo);
+		}
 		else
 		{
-			
+			homeService.deleteToDo(homeService.findToDo(id));
 		}
 		// validate inputed contact info and convert to entity
 		if (result.hasErrors()) {

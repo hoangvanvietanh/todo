@@ -25,6 +25,10 @@ public class ToDoDAO {
 		List<ToDo> contact = query.getResultList();
 		return contact;
 	}
+
+	public ToDo find(int id) {
+		return sessionFactory.openSession().find(ToDo.class, id);
+	}
 	
 	public ToDo create(ToDo todo) {
 		Session session = sessionFactory.openSession();
@@ -35,7 +39,21 @@ public class ToDoDAO {
 		return todo;
 	}
 	
-	public ToDo find(int id) {
-		return sessionFactory.openSession().find(ToDo.class, id);
+	public ToDo update(ToDo todo) {
+		Session session = sessionFactory.openSession();
+		Transaction tran = session.beginTransaction();
+		session.update(todo);
+		tran.commit();
+		session.close();
+		return todo;
+	}
+	
+	public ToDo delete(ToDo todo) {
+		Session session = sessionFactory.openSession();
+		Transaction tran = session.beginTransaction();
+		session.delete(todo);
+		tran.commit();
+		session.close();
+		return todo;
 	}
 }

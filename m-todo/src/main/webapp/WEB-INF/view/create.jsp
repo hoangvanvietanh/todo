@@ -48,7 +48,7 @@ input {
 				<label>Start Date</label>
 				<form:input path="startDate" type="date" />
 			</div>
-			<form:button name="action" value="abc">Save</form:button>
+			<form:button name="action" value="save">Save</form:button>
 			<button type="button"
 				onclick="window.location.href='<spring:url value="/todo" />'">Cancel</button>
 		</form:form>

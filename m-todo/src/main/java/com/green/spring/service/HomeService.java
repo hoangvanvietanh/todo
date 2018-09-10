@@ -26,4 +26,14 @@ public class HomeService {
 	public ToDo findToDo(int id) {
 		return toDoDAO.find(id);
 	}
+	
+	public ToDo updateToDo(ToDo todo) {
+		ToDo result = toDoDAO.update(todo);
+		return result;
+	}
+	
+	public ToDo deleteToDo(ToDo todo) {
+		ToDo result = toDoDAO.delete(todo);
+		return result;
+	}
 }

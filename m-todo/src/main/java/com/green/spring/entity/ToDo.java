@@ -28,9 +28,9 @@ public class ToDo {
 	@Column(name="start_date")
 	private String startDate;
 	@Column(name="started_at")
-	private Date startedAt;
+	private String startedAt;
 	@Column(name="ended_at")
-	private Date endedAt;
+	private String endedAt;
 	public int getId() {
 		return id;
 	}
@@ -73,16 +73,16 @@ public class ToDo {
 	public void setStartDate(String startDate) {
 		this.startDate = startDate;
 	}
-	public Date getStartedAt() {
+	public String getStartedAt() {
 		return startedAt;
 	}
-	public void setStartedAt(Date startedAt) {
+	public void setStartedAt(String startedAt) {
 		this.startedAt = startedAt;
 	}
-	public Date getEndedAt() {
+	public String getEndedAt() {
 		return endedAt;
 	}
-	public void setEndedAt(Date endedAt) {
+	public void setEndedAt(String endedAt) {
 		this.endedAt = endedAt;
 	}
 	

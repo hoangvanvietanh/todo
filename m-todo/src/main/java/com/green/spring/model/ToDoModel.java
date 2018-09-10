@@ -2,6 +2,8 @@ package com.green.spring.model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -27,36 +29,41 @@ public class ToDoModel {
 		this.setDescription(todo.getDescription());
 		this.setCreatedAt(dateFormat.format(todo.getCreatedAt()));
 		this.setNote(todo.getNote());
-		this.setStartDate(dateFormat.format(todo.getStartDate()));
-		this.setStartedAt(dateFormat.format(todo.getStartedAt()));
-		this.setEndedAt(dateFormat.format(todo.getEndedAt()));
+		this.setStartDate(todo.getStartDate());
+		this.setStatus(todo.getStatus());
+	//	this.setStartedAt(todo.getStartedAt());
+	//	this.setEndedAt(todo.getEndedAt());
 	}
 	
-	public ToDo toToDo() {
+	public ToDo toToDo() throws ParseException {
 		ToDo todo = new ToDo();
 		todo.setId(this.getId());
 		todo.setName(this.getName());
 		
 		todo.setDescription(this.getDescription());
 		todo.setNote(this.getNote());
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		todo.setStartDate(this.getStartDate());
-		Calendar cal = Calendar.getInstance();
-		todo.setCreatedAt(cal.getTime());
+		//SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		//todo.setStartDate(this.getStartDate());
+		//Calendar cal = Calendar.getInstance();
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDateTime now = LocalDateTime.now();
+		String time = dtf.format(now);
 		
-        try {
-        	Date date1 = dateFormat.parse(this.getStartDate());
-			if(date1.compareTo(cal.getTime())>0)
-			{
-				todo.setStatus("New[1]");
-			}
-			else
-			{
-				todo.setStatus("New[2]");
-			}
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		
+		
+		
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date date1 = sdf.parse(this.getStartDate());
+        Date date2 = sdf.parse(time);
+        todo.setCreatedAt(date2);
+		if(date1.compareTo(date2)>0)
+		{
+			todo.setStatus("New[1]");
+		}
+		else
+		{
+			todo.setStatus("New[2]");
 		}
 		
 		
