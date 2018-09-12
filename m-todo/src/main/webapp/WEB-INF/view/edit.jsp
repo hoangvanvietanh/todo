@@ -49,9 +49,13 @@ input {
 				<form:input path="startDate" type="date" />
 			</div>
 			<div class="input-group">
-				<form:input path="status" />
+				<form:input path="status" type="hidden" />
 			</div>
-			<form:button name="action" value="edit">Save</form:button>
+			<div class="input-group">
+				<form:input path="createdAt" type="hidden" />
+			</div>
+			
+			<form:button >Save</form:button>
 			<button type="button"
 				onclick="window.location.href='<spring:url value="/todo" />'">Cancel</button>
 		</form:form>

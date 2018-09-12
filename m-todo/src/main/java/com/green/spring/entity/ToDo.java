@@ -1,13 +1,11 @@
 package com.green.spring.entity;
 
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import utils.Status;
 
 @Entity
 @Table(name="todo")
@@ -22,7 +20,7 @@ public class ToDo {
 	@Column(name="status")
 	private String status;
 	@Column(name="created_at")
-	private Date createdAt;
+	private String createdAt;
 	@Column(name="note")
 	private String note;
 	@Column(name="start_date")
@@ -55,10 +53,10 @@ public class ToDo {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public Date getCreatedAt() {
+	public String getCreatedAt() {
 		return createdAt;
 	}
-	public void setCreatedAt(Date createdAt) {
+	public void setCreatedAt(String createdAt) {
 		this.createdAt = createdAt;
 	}
 	public String getNote() {

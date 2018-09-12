@@ -30,10 +30,10 @@ CREATE TABLE `todo` (
   `created_at` date DEFAULT NULL,
   `note` varchar(500) DEFAULT NULL,
   `start_date` date DEFAULT NULL,
-  `started_at` date DEFAULT NULL,
-  `ended_at` date DEFAULT NULL,
+  `started_at` datetime DEFAULT NULL,
+  `ended_at` datetime DEFAULT NULL,
   PRIMARY KEY (`idtodo`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=152 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,7 +42,7 @@ CREATE TABLE `todo` (
 
 LOCK TABLES `todo` WRITE;
 /*!40000 ALTER TABLE `todo` DISABLE KEYS */;
-INSERT INTO `todo` VALUES (5,'Hoang Van Viet Anh','s','New[1]','2018-09-10',NULL,'2018-09-15',NULL,NULL),(6,'Meo','hello','New[2]','2018-09-10',NULL,'2018-09-09',NULL,NULL),(7,'Messi','s','New[2]','2018-09-10',NULL,'2018-09-10',NULL,NULL),(8,'Huy','s','New[1]','2018-09-10',NULL,'2018-09-11',NULL,NULL),(9,'Hoang Van Viet Anh','hh','New[1]','2018-09-10',NULL,'2018-09-13',NULL,NULL);
+INSERT INTO `todo` VALUES (138,'Messi','asd','New2','2018-09-12',NULL,'2018-09-12',NULL,NULL),(140,'Meo','','Done','2018-09-12',NULL,'2018-09-12','2018-09-12 20:19:17','2018-09-12 20:19:20'),(142,'Hoang Viet EM','','New1','2018-09-12',NULL,'2018-09-13',NULL,NULL),(143,'Noy','','New2','2018-09-12',NULL,'2018-09-10',NULL,NULL),(144,'Meo','','New1','2018-09-12',NULL,'2018-09-15',NULL,NULL),(145,'Hoang Van Viet Anh','','New2','2018-09-12',NULL,'2018-09-09',NULL,NULL),(146,'Messi','','New2','2018-09-12',NULL,'2018-09-01',NULL,NULL),(147,'Noy','','New2','2018-09-12',NULL,'2018-09-12',NULL,NULL),(148,'Meo','','New2','2018-09-12',NULL,'2018-09-06',NULL,NULL),(149,'Huy','','New2','2018-09-12',NULL,'2018-09-08',NULL,NULL),(150,'Meo','','New1','2018-09-12',NULL,'2018-09-27',NULL,NULL),(151,'Hoang Van Viet Anh2','','New2','2018-09-12',NULL,'2018-09-12',NULL,NULL);
 /*!40000 ALTER TABLE `todo` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -55,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-09-10 15:00:09
+-- Dump completed on 2018-09-12 20:22:57

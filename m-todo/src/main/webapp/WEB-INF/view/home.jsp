@@ -15,76 +15,122 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style type="text/css">
-.input{
+.input {
 	border: none;
-    background: white;
+	background: none;
 	height: 20px;
+}
 
+.New1 {
+	background: white;
+}
+
+.New2 {
+	background: #CD853F;
+}
+
+.Done {
+	background: #FFD700;
+}
+
+.In-progress {
+	background: #00FFFF;
+}
+
+.Canceled {
+	background: #A52A2A;
 }
 </style>
 </head>
 <body>
-	<table class="table">
-		<tr>
-			<th>No.</th>
-			<th>Name</th>
-			<th>Status</th>
-			<th>Start Date</th>
-			<th>Started At</th>
-			<th>Ended At</th>
-			<th>Actions</th>
-		</tr>
-		<%
-			int i = 1;
-		%>
-		<c:forEach var="todo" items="${todo}">
+	<table id="example" class="table">
+		<thead>
 			<tr>
-				<td><%=i++%></td>
-				<td>${todo.name}</td>
-				<td>${todo.status}</td>
-				<td>${todo.startDate}</td>
-				<td>${todo.startedAt}</td>
-				<td>${todo.endedAt }</td>
-				<c:if test="${todo.status eq 'New[2]' }">
-						<form:form action="todo/update?action=start" method="post">
-						<input type="hidden" name="id" value="${todo.id}">
-						<td><button class="input" type="submit">Start</button></td>
-						</form:form>
-					</c:if>
-					<c:if test="${todo.status eq 'New[2]'}">
-						<form:form action="todo/update?action=cancel" method="post">
-							<input type="hidden" name="id" value="${todo.id}">
-							<td><button class="input" type="submit">Cancel</button></td>
-						</form:form>
-					</c:if> 
-					<c:if test="${todo.status eq 'In-progress' }">
-						<form:form action="todo/update?action=end" method="post">
-						<input type="hidden" name="id" value="${todo.id}">
-						<td><button class="input" type="submit">End</button></td>
-						</form:form>
-					</c:if>
-					<c:if test="${todo.status eq 'New[1]' or todo.status eq 'New[2]' or todo.status eq 'In-progress' or todo.status eq 'Done'or todo.status eq 'Canceled'}">
-						<form:form action="todo/update?action=view" method="post">
-						<input type="hidden" name="id" value="${todo.id}">
-						<td><button class="input" type="submit">View</button></td>
-						</form:form>
-					</c:if> 
-					<c:if test="${todo.status eq 'New[1]'}">
-						<form:form action="todo/update?action=edit" method="get">
-						<input type="hidden" name="id" value="${todo.id}">
-						<td><button class="input" type="submit">Edit</button></td>
-						</form:form>
-					</c:if> 
-					<c:if test="${todo.status eq 'New[1]' or todo.status eq 'New[2]' or todo.status eq 'Canceled'}">
-						<form:form action="todo/update?action=delete" method="post">
-						<input type="hidden" name="id" value="${todo.id}">
-							<td><button class="input" type="submit">Delete</button></td>
-						</form:form>
-					</c:if>
-					
+				<th>No.</th>
+				<th>Name</th>
+				<th>Status</th>
+				<th>Start Date</th>
+				<th>Started At</th>
+				<th>Ended At</th>
+				<th>Actions</th>
 			</tr>
-		</c:forEach>
-
+		</thead>
+		<tbody>
+			<%
+				int i = 1;
+			%>
+			<c:forEach var="todo" items="${todo}">
+				<tr class="${todo.status}">
+					<td><%=i++%></td>
+					<td>${todo.name}</td>
+					<td>${todo.status}</td>
+					<td>${todo.startDate}</td>
+					<td>${todo.startedAt}</td>
+					<td>${todo.endedAt }</td>
+					<td>
+						<button type="button" class="input" data-toggle="collapse"
+							data-target="#<%=i%>">Action</button>
+						<div id="<%=i%>" class="collapse">
+							<c:if test="${todo.status eq 'New2' }">
+								<form action="todo/update?action=start" method="post">
+									<input type="hidden" name="id" value="${todo.id}">
+									<button class="input" type="submit">Start</button>
+								</form>
+							</c:if>
+							<c:if test="${todo.status eq 'New2'}">
+								<form action="todo/update?action=cancel" method="post">
+									<input type="hidden" name="id" value="${todo.id}">
+									<button class="input" type="submit">Cancel</button>
+								</form>
+							</c:if>
+							<c:if test="${todo.status eq 'In-progress' }">
+								<form action="todo/update?action=end" method="post">
+									<input type="hidden" name="id" value="${todo.id}">
+									<button class="input" type="submit">End</button>
+								</form>
+							</c:if>
+							<c:if
+								test="${todo.status eq 'New1' or todo.status eq 'New2' or todo.status eq 'In-progress' or todo.status eq 'Done'or todo.status eq 'Canceled'}">
+								<form action="todo/update?action=view" method="get">
+									<input type="hidden" name="id" value="${todo.id}"> <input
+										type="hidden" name="action" value="view">
+									<button class="input" type="submit">View</button>
+								</form>
+							</c:if>
+							<c:if test="${todo.status eq 'New1'}">
+								<form action="todo/update?action=edit" method="get">
+									<input type="hidden" name="id" value="${todo.id}"> <input
+										type="hidden" name="action" value="edit">
+									<button class="input" type="submit">Edit</button>
+								</form>
+							</c:if>
+							<c:if
+								test="${todo.status eq 'New1' or todo.status eq 'New2' or todo.status eq 'Canceled'}">
+								<form action="todo/update?action=delete" method="post">
+									<input type="hidden" name="id" value="${todo.id}">
+									<button class="input" type="submit">Delete</button>
+								</form>
+							</c:if>
+						</div>
+					</td>
+				</tr>
+			</c:forEach>
+		</tbody>
 	</table>
+
+	<script src="<spring:url value='/resources/js/jquery-3.3.1.js' />"></script>
+	<script
+		src="<spring:url value='/resources/js/jquery.dataTables.min.js' />"></script>
+	<script
+		src="<spring:url value='/resources/js/dataTables.bootstrap.min.js' />"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#example').DataTable();
+		});
+	</script>
+	<button type="button"
+		onclick="window.location.href='<spring:url value="/todo/create" />'">Create</button>
+
+
 </body>
 </html>

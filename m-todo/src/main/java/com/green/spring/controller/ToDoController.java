@@ -4,8 +4,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,13 +30,11 @@ public class ToDoController {
 	@RequestMapping(method = RequestMethod.GET)
 	public String list(Model model) {
 		List<ToDo> todo = homeService.findAll();
-		for(ToDo t: todo)
-		{
-		
-		}
 		model.addAttribute("todo", todo);
 		return "home";
 	}
+	
+	
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public String create(Model model) {
 		ToDoModel todo = new ToDoModel();
@@ -60,8 +59,12 @@ public class ToDoController {
 		// back to contact list page
 		return "redirect:/todo";
 	}
+	
+	
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
-	public String update(@RequestParam(name="id") int id, Model model) {
+	public String update(@RequestParam(name="id") int id,
+			@RequestParam(name="action") String action,
+			Model model) throws ParseException {
 		
 		ToDo c = homeService.findToDo(id);
 		if (c == null) {
@@ -71,15 +74,25 @@ public class ToDoController {
 		toDoModel.formtoDo(c);
 		
 		model.addAttribute("todo", toDoModel);
+		model.addAttribute("c", c);
 		model.addAttribute("mode", "update");
 
-		return "edit";
+		if(action.equals("edit"))
+		{
+			return "edit";
+		}
+		else if(action.equals("delete"))
+		{
+			homeService.deleteToDo(homeService.findToDo(id));
+			return "redirect:/todo";
+		}
+		return "view";
 	}
 	
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public String handleUpdate(@RequestParam(name="id") int id,
 			@ModelAttribute("todo") ToDo todo, @RequestParam(name="action") String action,
-			BindingResult result, Model model) {
+			BindingResult result, Model model) throws ParseException {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 		LocalDateTime now = LocalDateTime.now();
 		String time = dtf.format(now);
@@ -104,17 +117,31 @@ public class ToDoController {
 			toDo.setStatus("Done");
 			homeService.updateToDo(toDo);
 		}
-		else if(action.equals("view"))
-		{
-			
-		}
-		else if(action.equals("edit"))
-		{
-			homeService.updateToDo(todo);
-		}
-		else
+		else if(action.equals("delete"))
 		{
 			homeService.deleteToDo(homeService.findToDo(id));
+		}
+		else if(action.equals("edit"))
+		{	
+			DateTimeFormatter dtf1 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+			LocalDateTime now1 = LocalDateTime.now();
+			String time1 = dtf1.format(now1);
+			
+			SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+	        Date date1 = sdf1.parse(todo.getStartDate());
+	        Date date2 = sdf1.parse(time1);
+	        todo.setCreatedAt(time1);
+	        
+			if(date1.compareTo(date2)>0)
+			{
+				todo.setStatus("New1");
+			}
+			else
+			{
+				todo.setStatus("New2");
+			}
+			
+			homeService.updateToDo(todo);
 		}
 		// validate inputed contact info and convert to entity
 		if (result.hasErrors()) {
