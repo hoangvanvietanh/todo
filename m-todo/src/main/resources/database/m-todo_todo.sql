@@ -32,8 +32,11 @@ CREATE TABLE `todo` (
   `start_date` date DEFAULT NULL,
   `started_at` datetime DEFAULT NULL,
   `ended_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`idtodo`)
-) ENGINE=InnoDB AUTO_INCREMENT=152 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `iduser` int(11) DEFAULT NULL,
+  PRIMARY KEY (`idtodo`),
+  KEY `fk_todo_1_idx` (`iduser`),
+  CONSTRAINT `fk_todo_1` FOREIGN KEY (`iduser`) REFERENCES `user` (`iduser`)
+) ENGINE=InnoDB AUTO_INCREMENT=164 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,7 +45,7 @@ CREATE TABLE `todo` (
 
 LOCK TABLES `todo` WRITE;
 /*!40000 ALTER TABLE `todo` DISABLE KEYS */;
-INSERT INTO `todo` VALUES (138,'Messi','asd','New2','2018-09-12',NULL,'2018-09-12',NULL,NULL),(140,'Meo','','Done','2018-09-12',NULL,'2018-09-12','2018-09-12 20:19:17','2018-09-12 20:19:20'),(142,'Hoang Viet EM','','New1','2018-09-12',NULL,'2018-09-13',NULL,NULL),(143,'Noy','','New2','2018-09-12',NULL,'2018-09-10',NULL,NULL),(144,'Meo','','New1','2018-09-12',NULL,'2018-09-15',NULL,NULL),(145,'Hoang Van Viet Anh','','New2','2018-09-12',NULL,'2018-09-09',NULL,NULL),(146,'Messi','','New2','2018-09-12',NULL,'2018-09-01',NULL,NULL),(147,'Noy','','New2','2018-09-12',NULL,'2018-09-12',NULL,NULL),(148,'Meo','','New2','2018-09-12',NULL,'2018-09-06',NULL,NULL),(149,'Huy','','New2','2018-09-12',NULL,'2018-09-08',NULL,NULL),(150,'Meo','','New1','2018-09-12',NULL,'2018-09-27',NULL,NULL),(151,'Hoang Van Viet Anh2','','New2','2018-09-12',NULL,'2018-09-12',NULL,NULL);
+INSERT INTO `todo` VALUES (153,'Meo','nothing','Done','2018-09-14',NULL,'2018-09-14','2018-09-14 10:34:23','2018-09-14 12:45:00',1),(156,'Messi','s','New2','2018-09-14',NULL,'2018-09-14',NULL,NULL,NULL),(159,'Meo','','New2','2018-09-16',NULL,'2018-09-14',NULL,NULL,1),(160,'Hoang Van Viet Anh','','New2','2018-09-16',NULL,'2018-09-14',NULL,NULL,1),(161,'Hoang Viet EM','','New1','2018-09-16',NULL,'2018-09-20',NULL,NULL,1),(162,'Messi','','Canceled','2018-09-16',NULL,'2018-09-16',NULL,NULL,1),(163,'Hoang Viet EM','','In-progress','2018-09-16',NULL,'2018-09-16','2018-09-17 10:21:17',NULL,1);
 /*!40000 ALTER TABLE `todo` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -55,4 +58,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-09-12 20:22:57
+-- Dump completed on 2018-09-17 10:22:35
