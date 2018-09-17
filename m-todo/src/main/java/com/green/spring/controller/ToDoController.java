@@ -7,6 +7,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.green.spring.entity.ToDo;
@@ -27,6 +30,7 @@ import com.green.spring.service.UserService;
 
 @Controller
 @RequestMapping("/todo")
+@SessionAttributes("user")
 public class ToDoController {
 	@Autowired
 	private HomeService homeService;
@@ -35,8 +39,8 @@ public class ToDoController {
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String list(@ModelAttribute("userLogin") UserModel user,BindingResult result,Model model,
-			@ModelAttribute("email") String email,RedirectAttributes redirectAttributes) {
-		//List<ToDo> todo = homeService.findAll();
+			@ModelAttribute("email") String email,RedirectAttributes redirectAttributes,
+			HttpServletRequest req) {
 		int id = userService.findByEmail("vietanh").getId();
 		List<ToDo> todo = homeService.findByuser(id);
 		model.addAttribute("todo", todo);
@@ -68,7 +72,7 @@ public class ToDoController {
 		homeService.createToDo(t);
 		
 		// back to contact list page
-		return "Redirect:/todo";
+		return "redirect:/todo";
 	}
 
 	@RequestMapping(value = "/update", method = RequestMethod.GET)

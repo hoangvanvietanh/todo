@@ -20,23 +20,18 @@
 	background: none;
 	height: 20px;
 }
-
 .New1 {
 	background: white;
 }
-
 .New2 {
 	background: #CD853F;
 }
-
 .Done {
 	background: #FFD700;
 }
-
 .In-progress {
 	background: #00FFFF;
 }
-
 .Canceled {
 	background: #A52A2A;
 }

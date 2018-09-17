@@ -41,7 +41,7 @@ input {
 			</div>
 			<div class="input-group">
 				<label>Password</label>
-				<form:input path="password"/>
+				<form:input path="password" type="password"/>
 			</div>
 			<form:button type="submit">Login</form:button>
 			<button type="button"

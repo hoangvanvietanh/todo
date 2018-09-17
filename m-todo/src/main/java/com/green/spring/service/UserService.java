@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import com.green.spring.dao.UserDAO;
 import com.green.spring.entity.User;
@@ -21,10 +22,15 @@ public class UserService {
 		User result = userDAO.create(user);
 		return result;
 	}
-	
+
 	public User findUser(int id) {
 		return userDAO.find(id);
 	}
+	@ModelAttribute("user")
+	public User user() {
+		return new User();
+	}
+	@ModelAttribute("findByEmail")
 	public User findByEmail(String email) {
 		return userDAO.findByEmail(email);
 	}
@@ -54,6 +60,7 @@ public class UserService {
 		 }		
 		return false;
 	}
+	
 	public User updateUser(User user) {
 		User result = userDAO.update(user);
 		return result;
