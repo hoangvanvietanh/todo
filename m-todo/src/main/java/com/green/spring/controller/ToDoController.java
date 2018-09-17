@@ -16,20 +16,29 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.green.spring.entity.ToDo;
+import com.green.spring.entity.User;
 import com.green.spring.model.ToDoModel;
+import com.green.spring.model.UserModel;
 import com.green.spring.service.HomeService;
+import com.green.spring.service.UserService;
 
 @Controller
 @RequestMapping("/todo")
 public class ToDoController {
 	@Autowired
 	private HomeService homeService;
+	@Autowired
+	private UserService userService;
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public String list(Model model) {
-		List<ToDo> todo = homeService.findAll();
+	public String list(@ModelAttribute("userLogin") UserModel user,BindingResult result,Model model,
+			@ModelAttribute("email") String email,RedirectAttributes redirectAttributes) {
+		//List<ToDo> todo = homeService.findAll();
+		int id = userService.findByEmail("vietanh").getId();
+		List<ToDo> todo = homeService.findByuser(id);
 		model.addAttribute("todo", todo);
 		return "home";
 	}
@@ -45,22 +54,23 @@ public class ToDoController {
 	
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public String handleCreate(@ModelAttribute("todo") ToDoModel todo, 
-			BindingResult result, Model model) throws ParseException {
+			BindingResult result, Model model,@ModelAttribute("email") String email,RedirectAttributes redirectAttributes) throws ParseException {
 		
 		// validate inputed contact info and convert to entity
 		if (result.hasErrors()) {
 			return "create";
 		}
-		
+		//redirectAttributes.addFlashAttribute("email", email);
 		// save contact info
+		User user = userService.findByEmail("vietanh");
 		ToDo t = todo.toToDo();
+		t.setUser(user);
 		homeService.createToDo(t);
 		
 		// back to contact list page
-		return "redirect:/todo";
+		return "Redirect:/todo";
 	}
-	
-	
+
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
 	public String update(@RequestParam(name="id") int id,
 			@RequestParam(name="action") String action,
@@ -84,7 +94,7 @@ public class ToDoController {
 		else if(action.equals("delete"))
 		{
 			homeService.deleteToDo(homeService.findToDo(id));
-			return "redirect:/todo";
+			return "redirect:/todo.jsp";
 		}
 		return "view";
 	}

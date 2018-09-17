@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 import com.green.spring.entity.ToDo;
+import com.green.spring.entity.User;
 
 
 public class ToDoModel {
@@ -19,6 +20,7 @@ public class ToDoModel {
 	private String startDate;
 	private String startedAt;
 	private String endedAt;
+	private User user;
 	
 	public void formtoDo(ToDo todo) throws ParseException {
 		this.setId(todo.getId());
@@ -30,6 +32,7 @@ public class ToDoModel {
 		this.setStatus(todo.getStatus());
 		this.setStartedAt(todo.getStartedAt());
 		this.setEndedAt(todo.getEndedAt());
+		this.setUser(todo.getUser());
 	}
 	
 	public ToDo toToDo() throws ParseException {
@@ -57,6 +60,7 @@ public class ToDoModel {
 		{
 			todo.setStatus("New2");
 		}
+		todo.setUser(this.getUser());
 		return todo;
 	}
 	
@@ -123,6 +127,14 @@ public class ToDoModel {
 
 	public void setEndedAt(String endedAt) {
 		this.endedAt = endedAt;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User idUser) {
+		this.user = idUser;
 	}
 	
 	

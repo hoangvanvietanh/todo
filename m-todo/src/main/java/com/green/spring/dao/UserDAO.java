@@ -11,65 +11,57 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.green.spring.entity.ToDo;
 import com.green.spring.entity.User;
 
-
 @Repository
-public class ToDoDAO {
+public class UserDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 	
-	public List<ToDo> findAll()
+	public List<User> findAll()
 	{
 		Session session = sessionFactory.openSession();
-		TypedQuery<ToDo> query = session.createQuery("FROM ToDo", ToDo.class);
-		List<ToDo> contact = query.getResultList();
-		return contact;
+		TypedQuery<User> query = session.createQuery("FROM User", User.class);
+		List<User> user = query.getResultList();
+		return user;
 	}
 
-	public List<ToDo> findByIdUser(int id) {
-		System.out.println("vao tim user by id:"+id);
+	public User findByEmail(String email) {
 		Session session = sessionFactory.openSession();
-		String sql = "select c from ToDo c where c.user.id = :id";
+		String sql = "select c from User c where c.email = :email";
 		Query query = session.createQuery(sql);
-		query.setParameter("id", id);
-		List<ToDo> toDo = query.list();
-		for(ToDo t:toDo)
-		{
-			System.out.println("----------------------------------------------------------"+ t.getName() + t.getStatus() +t.getCreatedAt());
-		}
-		return toDo;
+		query.setParameter("email", email);
+		User user = (User) query.getSingleResult();
+		return user;
+	}
+	public User find(int id) {
+		return sessionFactory.openSession().find(User.class, id);
 	}
 	
-	public ToDo find(int id) {
-		return sessionFactory.openSession().find(ToDo.class, id);
-	}
-	
-	public ToDo create(ToDo todo) {
+	public User create(User user) {
 		Session session = sessionFactory.openSession();
 		Transaction tran = session.beginTransaction();
-		session.save(todo);
+		session.save(user);
 		tran.commit();
 		session.close();
-		return todo;
+		return user;
 	}
 	
-	public ToDo update(ToDo todo) {
+	public User update(User user) {
 		Session session = sessionFactory.openSession();
 		Transaction tran = session.beginTransaction();
-		session.update(todo);
+		session.update(user);
 		tran.commit();
 		session.close();
-		return todo;
+		return user;
 	}
 	
-	public ToDo delete(ToDo todo) {
+	public User delete(User user) {
 		Session session = sessionFactory.openSession();
 		Transaction tran = session.beginTransaction();
-		session.delete(todo);
+		session.delete(user);
 		tran.commit();
 		session.close();
-		return todo;
+		return user;
 	}
 }

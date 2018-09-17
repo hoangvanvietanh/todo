@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.green.spring.dao.ToDoDAO;
+import com.green.spring.dao.UserDAO;
 import com.green.spring.entity.ToDo;
 
 @Service
@@ -16,8 +17,13 @@ public class HomeService {
 	public List<ToDo> findAll()
 	{
 		return toDoDAO.findAll();
+		
 	}
 	
+	public List<ToDo> findByuser(int id)
+	{
+		return toDoDAO.findByIdUser(id);
+	}
 	public ToDo createToDo(ToDo todo) {
 		ToDo result = toDoDAO.create(todo);
 		return result;

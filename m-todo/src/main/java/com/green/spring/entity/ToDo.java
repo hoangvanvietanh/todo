@@ -4,6 +4,8 @@ package com.green.spring.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 
@@ -29,6 +31,9 @@ public class ToDo {
 	private String startedAt;
 	@Column(name="ended_at")
 	private String endedAt;
+	@ManyToOne
+	@JoinColumn(name="iduser")
+	private User user;
 	public int getId() {
 		return id;
 	}
@@ -82,6 +87,12 @@ public class ToDo {
 	}
 	public void setEndedAt(String endedAt) {
 		this.endedAt = endedAt;
+	}
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
 	}
 	
 	
