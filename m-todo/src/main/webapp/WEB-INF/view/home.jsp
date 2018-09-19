@@ -20,18 +20,23 @@
 	background: none;
 	height: 20px;
 }
+
 .New1 {
 	background: white;
 }
+
 .New2 {
 	background: #CD853F;
 }
+
 .Done {
 	background: #FFD700;
 }
+
 .In-progress {
 	background: #00FFFF;
 }
+
 .Canceled {
 	background: #A52A2A;
 }
@@ -67,41 +72,39 @@
 							data-target="#<%=i%>">Action</button>
 						<div id="<%=i%>" class="collapse">
 							<c:if test="${todo.status eq 'New2' }">
-								<form action="todo/update?action=start" method="post">
+								<form action="todo/start" method="post">
 									<input type="hidden" name="id" value="${todo.id}">
 									<button class="input" type="submit">Start</button>
 								</form>
 							</c:if>
 							<c:if test="${todo.status eq 'New2'}">
-								<form action="todo/update?action=cancel" method="post">
+								<form action="todo/cancel" method="post">
 									<input type="hidden" name="id" value="${todo.id}">
 									<button class="input" type="submit">Cancel</button>
 								</form>
 							</c:if>
 							<c:if test="${todo.status eq 'In-progress' }">
-								<form action="todo/update?action=end" method="post">
+								<form action="todo/end" method="post">
 									<input type="hidden" name="id" value="${todo.id}">
 									<button class="input" type="submit">End</button>
 								</form>
 							</c:if>
 							<c:if
 								test="${todo.status eq 'New1' or todo.status eq 'New2' or todo.status eq 'In-progress' or todo.status eq 'Done'or todo.status eq 'Canceled'}">
-								<form action="todo/update?action=view" method="get">
-									<input type="hidden" name="id" value="${todo.id}"> <input
-										type="hidden" name="action" value="view">
+								<form action="todo/view" method="get">
+									<input type="hidden" name="id" value="${todo.id}">
 									<button class="input" type="submit">View</button>
 								</form>
 							</c:if>
 							<c:if test="${todo.status eq 'New1'}">
-								<form action="todo/update?action=edit" method="get">
-									<input type="hidden" name="id" value="${todo.id}"> <input
-										type="hidden" name="action" value="edit">
+								<form action="todo/edit" method="get">
+									<input type="hidden" name="id" value="${todo.id}">
 									<button class="input" type="submit">Edit</button>
 								</form>
 							</c:if>
 							<c:if
 								test="${todo.status eq 'New1' or todo.status eq 'New2' or todo.status eq 'Canceled'}">
-								<form action="todo/update?action=delete" method="post">
+								<form action="todo/delete" method="post">
 									<input type="hidden" name="id" value="${todo.id}">
 									<button class="input" type="submit">Delete</button>
 								</form>

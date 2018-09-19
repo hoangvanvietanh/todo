@@ -56,6 +56,7 @@ input {
 			</div>
 			
 			<form:button >Save</form:button>
+			
 			<button type="button"
 				onclick="window.location.href='<spring:url value="/todo" />'">Cancel</button>
 		</form:form>
