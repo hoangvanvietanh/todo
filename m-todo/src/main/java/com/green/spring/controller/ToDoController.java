@@ -30,6 +30,8 @@ import com.green.spring.service.HomeService;
 import com.green.spring.service.UserService;
 import com.mysql.cj.Query;
 
+import utils.Page;
+
 @Controller
 @RequestMapping("/todo")
 @SessionAttributes("user")
@@ -40,11 +42,15 @@ public class ToDoController {
 	private UserService userService;
 
 	@RequestMapping(method = RequestMethod.GET)
-	public String list(@ModelAttribute("userLogin") UserModel user, BindingResult result, Model model,
+	public String list(@RequestParam(name="numberPage", defaultValue="1") int page,@ModelAttribute("userLogin") UserModel user, BindingResult result, Model model,
 			@ModelAttribute("email") String email, RedirectAttributes redirectAttributes, HttpServletRequest req) {
 		int id = userService.findByEmail("vietanh").getId();
-		List<ToDo> todo = homeService.findByuser(id);
+		List<ToDo> todo = homeService.findByuser(id, page);
+		//Page<ToDo > todo = homeService.getPage(id, page);
+		double num= homeService.getNumberPage(id);
+		model.addAttribute("num", num);
 		model.addAttribute("todo", todo);
+		model.addAttribute("id", id);
 		return "home";
 	}
 

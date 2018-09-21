@@ -9,6 +9,8 @@ import com.green.spring.dao.ToDoDAO;
 import com.green.spring.dao.UserDAO;
 import com.green.spring.entity.ToDo;
 
+import utils.Page;
+
 @Service
 public class HomeService {
 	@Autowired
@@ -20,9 +22,9 @@ public class HomeService {
 		
 	}
 	
-	public List<ToDo> findByuser(int id)
+	public List<ToDo> findByuser(int id, int page)
 	{
-		return toDoDAO.findByIdUser(id);
+		return toDoDAO.findByIdUser(id, page);
 	}
 	public ToDo createToDo(ToDo todo) {
 		ToDo result = toDoDAO.create(todo);
@@ -43,4 +45,13 @@ public class HomeService {
 		return result;
 	}
 	
+	public double getNumberPage(int id) {
+		double test = toDoDAO.getMaxResults(id)%10;
+		if(test==0)
+		{
+			return toDoDAO.getMaxResults(id)/10;
+		}
+		
+		return Math.round(toDoDAO.getMaxResults(id)/10+0.5);
+	}
 }

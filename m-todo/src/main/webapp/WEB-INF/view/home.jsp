@@ -129,6 +129,15 @@
 	<button type="button"
 		onclick="window.location.href='<spring:url value="/todo/create" />'">Create</button>
 
+	<c:set var="num" value="${num}"></c:set>
+	<c:set var="id" value="${id}"></c:set>
 
+	<c:forEach var="i" begin="1" end="${num}">
+		<form action="todo">
+			<input type="hidden" name="id" value="${id}"> <input
+				type="hidden" name="numberPage" value="${i}">
+			<button class="input" type="submit">${i}</button>
+		</form>
+	</c:forEach>
 </body>
 </html>
