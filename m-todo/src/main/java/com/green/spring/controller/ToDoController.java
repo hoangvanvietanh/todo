@@ -43,11 +43,18 @@ public class ToDoController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String list(@RequestParam(name="numberPage", defaultValue="1") int page,@ModelAttribute("userLogin") UserModel user, BindingResult result, Model model,
-			@ModelAttribute("email") String email, RedirectAttributes redirectAttributes, HttpServletRequest req) {
+			@ModelAttribute("email") String email, RedirectAttributes redirectAttributes,HttpServletRequest req) {
 		int id = userService.findByEmail("vietanh").getId();
 		List<ToDo> todo = homeService.findByuser(id, page);
 		//Page<ToDo > todo = homeService.getPage(id, page);
+		
 		double num= homeService.getNumberPage(id);
+		int i = 0;
+		if(page>1)
+		{
+			i =(int)(10*page)-10+1;
+		}
+		model.addAttribute("i", i);
 		model.addAttribute("num", num);
 		model.addAttribute("todo", todo);
 		model.addAttribute("id", id);

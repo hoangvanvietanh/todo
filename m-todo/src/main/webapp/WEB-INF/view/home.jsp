@@ -21,6 +21,10 @@
 	height: 20px;
 }
 
+.b {
+	float: left;
+}
+
 .New1 {
 	background: white;
 }
@@ -61,52 +65,62 @@
 			%>
 			<c:forEach var="todo" items="${todo}">
 				<tr class="${todo.status}">
-					<td><%=i++%></td>
+					<td>${i=i+1}</td>
 					<td>${todo.name}</td>
 					<td>${todo.status}</td>
 					<td>${todo.startDate}</td>
 					<td>${todo.startedAt}</td>
 					<td>${todo.endedAt }</td>
 					<td>
-						<button type="button" class="input" data-toggle="collapse"
-							data-target="#<%=i%>">Action</button>
-						<div id="<%=i%>" class="collapse">
+						
 							<c:if test="${todo.status eq 'New2' }">
 								<form action="todo/start" method="post">
 									<input type="hidden" name="id" value="${todo.id}">
+									<div class="b">
 									<button class="input" type="submit">Start</button>
+									</div>
 								</form>
 							</c:if>
 							<c:if test="${todo.status eq 'New2'}">
 								<form action="todo/cancel" method="post">
 									<input type="hidden" name="id" value="${todo.id}">
+									<div class="b">
 									<button class="input" type="submit">Cancel</button>
+									</div>
 								</form>
 							</c:if>
 							<c:if test="${todo.status eq 'In-progress' }">
 								<form action="todo/end" method="post">
 									<input type="hidden" name="id" value="${todo.id}">
+									<div class="b">
 									<button class="input" type="submit">End</button>
+									</div>
 								</form>
 							</c:if>
 							<c:if
 								test="${todo.status eq 'New1' or todo.status eq 'New2' or todo.status eq 'In-progress' or todo.status eq 'Done'or todo.status eq 'Canceled'}">
 								<form action="todo/view" method="get">
 									<input type="hidden" name="id" value="${todo.id}">
+									<div class="b">
 									<button class="input" type="submit">View</button>
+									</div>
 								</form>
 							</c:if>
 							<c:if test="${todo.status eq 'New1'}">
 								<form action="todo/edit" method="get">
 									<input type="hidden" name="id" value="${todo.id}">
+									<div class="b">
 									<button class="input" type="submit">Edit</button>
+									</div>
 								</form>
 							</c:if>
 							<c:if
 								test="${todo.status eq 'New1' or todo.status eq 'New2' or todo.status eq 'Canceled'}">
 								<form action="todo/delete" method="post">
 									<input type="hidden" name="id" value="${todo.id}">
+									<div class="b">
 									<button class="input" type="submit">Delete</button>
+									</div>
 								</form>
 							</c:if>
 						</div>
@@ -129,15 +143,14 @@
 	<button type="button"
 		onclick="window.location.href='<spring:url value="/todo/create" />'">Create</button>
 
-	<c:set var="num" value="${num}"></c:set>
-	<c:set var="id" value="${id}"></c:set>
-
-	<c:forEach var="i" begin="1" end="${num}">
-		<form action="todo">
-			<input type="hidden" name="id" value="${id}"> <input
-				type="hidden" name="numberPage" value="${i}">
-			<button class="input" type="submit">${i}</button>
-		</form>
-	</c:forEach>
+		<c:forEach var="i" begin="1" end="${num}">
+			<form action="todo">
+				<input type="hidden" name="id" value="${id}"> <input
+					type="hidden" name="numberPage" value="${i}">
+				<div class="b">
+					<button type="submit">${i}</button>
+				</div>
+			</form>
+		</c:forEach>
 </body>
 </html>

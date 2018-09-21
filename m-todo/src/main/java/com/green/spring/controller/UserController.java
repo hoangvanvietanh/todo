@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.green.spring.entity.ToDo;
 import com.green.spring.entity.User;
+import com.green.spring.model.ToDoModel;
 import com.green.spring.model.UserModel;
 import com.green.spring.service.HomeService;
 import com.green.spring.service.UserService;
@@ -59,12 +60,24 @@ public class UserController {
 
 		if(checkLogin==true)
 		{
+			
+			User users = userService.findByEmail(email);
+			UserModel userModel = new UserModel();
+			userModel.formUser(users);
+			model.addAttribute("user", userModel);
+			model.addAttribute("mode", "create");
+			return "detailUser";
 			//System.out.println("Id la: " + id);
 			
-			return "redirect:/todo";
+			//return "redirect:/todo";
 			//return "redirect:/todo";
 		}
 		// back to contact list page
 		return "redirect:/login";
 	}
+	
+//	@RequestMapping(value = "/detail", method = RequestMethod.GET)
+//	public String detail(Model model) {
+//		
+//	}
 }

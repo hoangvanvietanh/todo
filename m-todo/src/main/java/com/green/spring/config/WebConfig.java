@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -21,6 +22,8 @@ import org.springframework.web.servlet.view.JstlView;
 @Configuration
 @ComponentScan({ "com.green.spring" })
 public class WebConfig implements WebMvcConfigurer {
+	
+	private int maxUploadSizeInMb = 5 * 1024 * 1024; // 5 MB
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
@@ -67,4 +70,14 @@ public class WebConfig implements WebMvcConfigurer {
 		txManager.setSessionFactory(s);
 		return txManager;
 	}
+	
+	 @Bean
+	    public CommonsMultipartResolver multipartResolver() {
+
+	        CommonsMultipartResolver cmr = new CommonsMultipartResolver();
+	        cmr.setMaxUploadSize(maxUploadSizeInMb * 2);
+	        cmr.setMaxUploadSizePerFile(maxUploadSizeInMb); //bytes
+	        return cmr;
+
+	    }
 }
