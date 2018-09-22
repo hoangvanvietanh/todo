@@ -81,7 +81,6 @@ input {
 		
 		<form:form modelAttribute="todo" action="update" method="get">
 			<form:input path="id" name="id" type="hidden" />
-			<input type="hidden">
 			<c:if test="${c.status eq 'New1'}">
 				<td><button class="input" type="submit" name="action"
 						value="edit">Edit</button></td>

@@ -26,12 +26,13 @@ public class UserDAO {
 		return user;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public User findByEmail(String email) {
 		Session session = sessionFactory.openSession();
 		String sql = "select c from User c where c.email = :email";
 		Query query = session.createQuery(sql);
 		query.setParameter("email", email);
-		User user = (User) query.getSingleResult();
+		User user = (User) query.uniqueResult();
 		return user;
 	}
 	public User find(int id) {

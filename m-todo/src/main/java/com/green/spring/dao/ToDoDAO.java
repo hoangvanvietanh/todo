@@ -12,9 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.green.spring.entity.ToDo;
-import com.green.spring.entity.User;
 
-import utils.Page;
 
 
 @Repository
@@ -30,6 +28,7 @@ public class ToDoDAO {
 		return contact;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public int getMaxResults(int id)
 	{
 		Session session = sessionFactory.openSession();
@@ -39,33 +38,11 @@ public class ToDoDAO {
 		 return ((Number) queryCout.uniqueResult()).intValue();
 		
 	}
-	/*public Page<ToDo> search(int id, int page)
-	{
-		int totalRows = 10;
-		int MAX_ROWS = getMaxResults(id);
-		
-		int start=(page -1) * MAX_ROWS;
-		int totalPage = totalRows/MAX_ROWS;
-		if(totalRows%MAX_ROWS>0) {
-			totalPage+=1;
-		}
-		
-		List<ToDo> list = findByIdUser(id);
-		
-		Page<ToDo> pages = new Page<>();
-		pages.setList(list);
-		pages.setTotalPage(totalPage);
-		return pages;
-	}*/
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public List<ToDo> findByIdUser(int id, int page) {
-		System.out.println("vao tim user by id:"+id);
 		int first;
 		Session session = sessionFactory.openSession();
-//		String cout = "select count(*) from ToDo c where c.user.id = :id";
-//		Query queryCout = session.createQuery(cout);
-//		queryCout.setParameter("id", id);
-//		int max = ((Number) queryCout.uniqueResult()).intValue();
 		if(page==1)
 		{
 			first = 0;
@@ -74,14 +51,11 @@ public class ToDoDAO {
 		{
 			first = (10*page)-10;
 		}
-		int max = page*10;
-		System.out.println("Tong la::::::::::::::::" + first);
-		System.out.println("Tong la::::::::::::::::" + max);
 		String sql = "select c from ToDo c where c.user.id = :id";
 		Query query = session.createQuery(sql);
 		query.setParameter("id", id);
 		query.setFirstResult(first);
-		query.setMaxResults(max);
+		query.setMaxResults(10);
 		List<ToDo> toDo = query.list();
 		
 		return toDo;

@@ -3,6 +3,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,11 +35,14 @@ input {
 </head>
 <body>
 	<div class="center">
-		<form:form modelAttribute="user" method="get">
+		<form:form modelAttribute="user" action="user/update" method="post" enctype="multipart/form-data">
 			<form:errors path="*" cssClass="error-box" />
 			<div class="input-group">
+				<form:input type="hidden" path="id" />
+			</div>
+			<div class="input-group">
 				<label>Avatar</label>
-				<form:input type="file" path="avatar"/>
+				<input type="file" name="file"/>
 			</div>
 			<div class="input-group">
 				<label>Email</label>
@@ -54,20 +58,23 @@ input {
 			</div>
 			<div class="input-group">
 				<label>Birth Date</label>
-				<form:input path="birthDate"  />
+				<form:input path="birthDate" />
 			</div>
 			<div class="input-group">
 				<label>Address</label>
-				<form:textarea path="address"  rows="3"/>
+				<form:textarea path="address" rows="3" />
 			</div>
 			<div class="input-group">
 				<label>Phone</label>
-				<form:input path="phone"  />
+				<form:input path="phone" />
 			</div>
-			
+			<div class="input-group">
+				<form:input type="hidden" path="password" />
+			</div>
 			<button type="submit">Submit</button>
 			<button type="button"
 				onclick="window.location.href='<spring:url value="/todo" />'">Cancel</button>
+			<a href="todo">Todo</a>
 		</form:form>
 	</div>
 

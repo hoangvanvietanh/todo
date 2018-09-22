@@ -21,8 +21,23 @@
 	height: 20px;
 }
 
+.d {
+	width: 100%;
+	hight: 500px;
+}
+
 .b {
 	float: left;
+}
+
+.r {
+	float: right;
+}
+
+.center {
+	margin: auto;
+	width: 20%;
+	padding: 10px;
 }
 
 .New1 {
@@ -47,7 +62,11 @@
 </style>
 </head>
 <body>
-	<table id="example" class="table">
+	<button type="button"
+		onclick="window.location.href='<spring:url value="/todo/create" />'">Create</button>
+	<button type="button"
+		onclick="window.location.href='<spring:url value="/login" />'">Logout</button>
+	<table class="table">
 		<thead>
 			<tr>
 				<th>No.</th>
@@ -60,9 +79,6 @@
 			</tr>
 		</thead>
 		<tbody>
-			<%
-				int i = 1;
-			%>
 			<c:forEach var="todo" items="${todo}">
 				<tr class="${todo.status}">
 					<td>${i=i+1}</td>
@@ -71,86 +87,100 @@
 					<td>${todo.startDate}</td>
 					<td>${todo.startedAt}</td>
 					<td>${todo.endedAt }</td>
-					<td>
-						
-							<c:if test="${todo.status eq 'New2' }">
-								<form action="todo/start" method="post">
-									<input type="hidden" name="id" value="${todo.id}">
-									<div class="b">
+					<td><c:if test="${todo.status eq 'New2' }">
+							<form action="todo/start" method="post">
+								<input type="hidden" name="id" value="${todo.id}"> <input
+									type="hidden" name="number" value="${page3}">
+								<div class="b">
 									<button class="input" type="submit">Start</button>
-									</div>
-								</form>
-							</c:if>
-							<c:if test="${todo.status eq 'New2'}">
-								<form action="todo/cancel" method="post">
-									<input type="hidden" name="id" value="${todo.id}">
-									<div class="b">
+								</div>
+							</form>
+						</c:if> <c:if test="${todo.status eq 'New2'}">
+							<form action="todo/cancel" method="post">
+								<input type="hidden" name="id" value="${todo.id}"> <input
+									type="hidden" name="number" value="${page3}">
+								<div class="b">
 									<button class="input" type="submit">Cancel</button>
-									</div>
-								</form>
-							</c:if>
-							<c:if test="${todo.status eq 'In-progress' }">
-								<form action="todo/end" method="post">
-									<input type="hidden" name="id" value="${todo.id}">
-									<div class="b">
+								</div>
+							</form>
+						</c:if> <c:if test="${todo.status eq 'In-progress' }">
+							<form action="todo/end" method="post">
+								<input type="hidden" name="id" value="${todo.id}"> <input
+									type="hidden" name="number" value="${page3}">
+								<div class="b">
 									<button class="input" type="submit">End</button>
-									</div>
-								</form>
-							</c:if>
-							<c:if
-								test="${todo.status eq 'New1' or todo.status eq 'New2' or todo.status eq 'In-progress' or todo.status eq 'Done'or todo.status eq 'Canceled'}">
-								<form action="todo/view" method="get">
-									<input type="hidden" name="id" value="${todo.id}">
-									<div class="b">
+								</div>
+							</form>
+						</c:if> <c:if
+							test="${todo.status eq 'New1' or todo.status eq 'New2' or todo.status eq 'In-progress' or todo.status eq 'Done'or todo.status eq 'Canceled'}">
+							<form action="todo/view" method="get">
+								<input type="hidden" name="id" value="${todo.id}"> <input
+									type="hidden" name="number" value="${page3}">
+								<div class="b">
 									<button class="input" type="submit">View</button>
-									</div>
-								</form>
-							</c:if>
-							<c:if test="${todo.status eq 'New1'}">
-								<form action="todo/edit" method="get">
-									<input type="hidden" name="id" value="${todo.id}">
-									<div class="b">
+								</div>
+							</form>
+						</c:if> <c:if test="${todo.status eq 'New1'}">
+							<form action="todo/edit" method="get">
+								<input type="hidden" name="id" value="${todo.id}"> <input
+									type="hidden" name="number" value="${page3}">
+								<div class="b">
 									<button class="input" type="submit">Edit</button>
-									</div>
-								</form>
-							</c:if>
-							<c:if
-								test="${todo.status eq 'New1' or todo.status eq 'New2' or todo.status eq 'Canceled'}">
-								<form action="todo/delete" method="post">
-									<input type="hidden" name="id" value="${todo.id}">
-									<div class="b">
+								</div>
+							</form>
+						</c:if> <c:if
+							test="${todo.status eq 'New1' or todo.status eq 'New2' or todo.status eq 'Canceled'}">
+							<form action="todo/delete" method="post">
+								<input type="hidden" name="id" value="${todo.id}"> <input
+									type="hidden" name="number" value="${page3}">
+								<div class="b">
 									<button class="input" type="submit">Delete</button>
-									</div>
-								</form>
-							</c:if>
-						</div>
-					</td>
+								</div>
+							</form>
+						</c:if></td>
 				</tr>
 			</c:forEach>
 		</tbody>
 	</table>
-
-	<script src="<spring:url value='/resources/js/jquery-3.3.1.js' />"></script>
-	<script
-		src="<spring:url value='/resources/js/jquery.dataTables.min.js' />"></script>
-	<script
-		src="<spring:url value='/resources/js/dataTables.bootstrap.min.js' />"></script>
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$('#example').DataTable();
-		});
-	</script>
-	<button type="button"
-		onclick="window.location.href='<spring:url value="/todo/create" />'">Create</button>
-
-		<c:forEach var="i" begin="1" end="${num}">
+	<div class="center">
+		<c:if test="${page2 gt 1}">
 			<form action="todo">
 				<input type="hidden" name="id" value="${id}"> <input
-					type="hidden" name="numberPage" value="${i}">
+					type="hidden" name="numberPage" value="1">
 				<div class="b">
-					<button type="submit">${i}</button>
+					<button type="submit" class="input">|<</button>
 				</div>
 			</form>
-		</c:forEach>
+			<form action="todo">
+				<input type="hidden" name="id" value="${id}"> <input
+					type="hidden" name="numberPage" value="${page2=page2-1}">
+				<div class="b">
+					<button type="submit" class="input"><</button>
+				</div>
+			</form>
+		</c:if>
+		<div class="b">
+			<button class="input">${page3}</button>
+		</div>
+		<c:if test="${page lt num2}">
+			<form action="todo">
+				<input type="hidden" name="id" value="${id}"> <input
+					type="hidden" name="numberPage" value="${page=page+1}">
+				<div class="b">
+					<button class="input" type="submit">></button>
+				</div>
+			</form>
+			<form action="todo">
+				<input type="hidden" name="id" value="${id}"> <input
+					type="hidden" name="numberPage" value="${num}">
+				<div class="b">
+					<button class="input" type="submit">>|</button>
+				</div>
+			</form>
+		</c:if>
+
+	</div>
+
+
 </body>
 </html>

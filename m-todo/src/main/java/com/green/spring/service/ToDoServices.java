@@ -6,13 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.green.spring.dao.ToDoDAO;
-import com.green.spring.dao.UserDAO;
 import com.green.spring.entity.ToDo;
 
-import utils.Page;
 
 @Service
-public class HomeService {
+public class ToDoServices {
 	@Autowired
 	ToDoDAO toDoDAO;
 	

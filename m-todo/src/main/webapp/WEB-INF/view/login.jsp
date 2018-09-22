@@ -34,7 +34,7 @@ input {
 </head>
 <body>
 	<div class="center">
-		<form:form modelAttribute="login">
+		<form:form modelAttribute="userLogin" action="login" method="post">
 			<div class="input-group">
 				<label>Email</label>
 				<form:input path="email" />
@@ -44,8 +44,6 @@ input {
 				<form:input path="password" type="password"/>
 			</div>
 			<form:button type="submit">Login</form:button>
-			<button type="button"
-				onclick="window.location.href='<spring:url value="/login" />'">Cancel</button>
 		</form:form>
 	</div>
 
