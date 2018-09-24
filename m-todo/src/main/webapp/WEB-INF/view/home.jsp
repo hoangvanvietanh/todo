@@ -14,11 +14,24 @@
 	href="<spring:url value='/resources/css/home.css'/>">
 </head>
 <body>
+
+	<form action="todo">
+		<div>
+			<div class="b">Name </div>
+			<input type="hidden" name="id" value="${id}">
+			<div class="b">
+				<input type="text" name="name">
+				<button class="input" type="submit">Search</button>
+				<button class="input" type="button"
+					onclick="window.location.href='<spring:url value="/todo/create" />'">Create</button>
+				<button class="input" type="button"
+					onclick="window.location.href='<spring:url value="/logout" />'">Logout</button>
+			</div>
+		</div>
+	</form>
 	<form:errors path="*" cssClass="error-box" />
-	<button type="button"
-		onclick="window.location.href='<spring:url value="/todo/create" />'">Create</button>
-	<button type="button"
-		onclick="window.location.href='<spring:url value="/logout" />'">Logout</button>
+
+
 	<table class="table">
 		<thead>
 			<tr>
@@ -133,7 +146,5 @@
 		</c:if>
 
 	</div>
-
-
 </body>
 </html>

@@ -13,21 +13,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import com.green.spring.entity.ToDo;
 import com.green.spring.entity.User;
 import com.green.spring.model.ToDoModel;
-import com.green.spring.model.UserModel;
 import com.green.spring.service.ToDoServices;
 import com.green.spring.service.UserService;
+
+import net.bytebuddy.implementation.bytecode.constant.DefaultValue;
 
 @Controller
 @SessionAttributes("email")
@@ -40,21 +38,18 @@ public class ToDoController {
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String list(@RequestParam(name="numberPage", defaultValue="1") int page,@ModelAttribute("email") String email, BindingResult result, Model model,
-			@ModelAttribute("act") String act,RedirectAttributes redirectAttributes,HttpServletRequest req) {
-		System.out.println("Hello viet anh no co vao ne::::::::::::::::::::::::::::::::::::::::::::");
-		
+			@ModelAttribute("name") String name,RedirectAttributes redirectAttributes,HttpServletRequest req) {
 		if(email.equals("null"))
 		{
 			return "redirect:/login"; 
 		}
-		
+		System.out.println("Ban vua nhap:::::::::::::::::::::::::::::::::::::::::::::::: |" + name+"|");
 		DateTimeFormatter dtf1 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		LocalDateTime now1 = LocalDateTime.now();
 		String time = dtf1.format(now1);
 		
-		System.out.println("User::::::::::::::::::::::::::::::::::;" +email);
 		int id = userService.findByEmail(email).getId();
-		List<ToDo> todo = toDoServices.findByuser(id, page);
+		List<ToDo> todo = toDoServices.findByuser(id, page, name);
 		for(ToDo t:todo)
 		{
 			if(t.getStartDate().compareTo(time)<=0&&t.getStatus().equals("New1"))

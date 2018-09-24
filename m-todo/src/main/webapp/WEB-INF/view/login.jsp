@@ -35,11 +35,11 @@
 						<label for="lg_remember">remember</label>
 					</div>
 				</div>
-				<form:button type="submit" class="login-button"><i class="fa fa-chevron-right"></i></form:button>
+				<form:button type="submit" class="login-button"><i class="fa fa-chevron-right">Go</i></form:button>
 			</div>
 			<div class="etc-login-form">
-				<p>forgot your password? <a href="#">click here</a></p>
-				<p>new user? <a href="#">create new account</a></p>
+				<p>Forgot your password? <a href="#">click here</a></p>
+				<p>New user? <a href="<spring:url value='/sign-up'/>">create new account</a></p>
 			</div>
 		</form:form>
 	</div>

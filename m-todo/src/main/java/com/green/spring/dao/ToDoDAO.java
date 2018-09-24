@@ -35,12 +35,11 @@ public class ToDoDAO {
 		String cout = "select count(*) from ToDo c where c.user.id = :id";
 		Query queryCout = session.createQuery(cout);
 		queryCout.setParameter("id", id);
-		 return ((Number) queryCout.uniqueResult()).intValue();
-		
+		return ((Number) queryCout.uniqueResult()).intValue();
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public List<ToDo> findByIdUser(int id, int page) {
+	public List<ToDo> findByIdUser(int id, int page,String name) {
 		int first;
 		Session session = sessionFactory.openSession();
 		if(page==1)
@@ -51,13 +50,26 @@ public class ToDoDAO {
 		{
 			first = (10*page)-10;
 		}
-		String sql = "select c from ToDo c where c.user.id = :id";
-		Query query = session.createQuery(sql);
-		query.setParameter("id", id);
-		query.setFirstResult(first);
-		query.setMaxResults(10);
-		List<ToDo> toDo = query.list();
-		
+		List<ToDo> toDo;
+		if(name.equals(""))
+		{
+			String sql = "select c from ToDo c where c.user.id = :id";
+			Query query = session.createQuery(sql);
+			query.setParameter("id", id);
+			query.setFirstResult(first);
+			query.setMaxResults(10);
+			toDo = query.list();
+		}
+		else
+		{
+			String sql = "select c from ToDo c where c.user.id = :id and c.name =:name";
+			Query query = session.createQuery(sql);
+			query.setParameter("id", id);
+			query.setParameter("name", name);
+			query.setFirstResult(first);
+			query.setMaxResults(10);
+			toDo = query.list();
+		}
 		return toDo;
 	}
 	

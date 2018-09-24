@@ -17,12 +17,11 @@ public class ToDoServices {
 	public List<ToDo> findAll()
 	{
 		return toDoDAO.findAll();
-		
 	}
 	
-	public List<ToDo> findByuser(int id, int page)
+	public List<ToDo> findByuser(int id, int page, String name)
 	{
-		return toDoDAO.findByIdUser(id, page);
+		return toDoDAO.findByIdUser(id, page, name);
 	}
 	public ToDo createToDo(ToDo todo) {
 		ToDo result = toDoDAO.create(todo);

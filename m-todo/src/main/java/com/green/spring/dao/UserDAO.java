@@ -38,7 +38,7 @@ public class UserDAO {
 	public User find(int id) {
 		return sessionFactory.openSession().find(User.class, id);
 	}
-	
+
 	public User create(User user) {
 		Session session = sessionFactory.openSession();
 		Transaction tran = session.beginTransaction();
