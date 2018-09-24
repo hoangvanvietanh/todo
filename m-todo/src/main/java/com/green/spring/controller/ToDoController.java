@@ -41,6 +41,13 @@ public class ToDoController {
 	@RequestMapping(method = RequestMethod.GET)
 	public String list(@RequestParam(name="numberPage", defaultValue="1") int page,@ModelAttribute("email") String email, BindingResult result, Model model,
 			@ModelAttribute("act") String act,RedirectAttributes redirectAttributes,HttpServletRequest req) {
+		System.out.println("Hello viet anh no co vao ne::::::::::::::::::::::::::::::::::::::::::::");
+		
+		if(email.equals("null"))
+		{
+			return "redirect:/login"; 
+		}
+		
 		DateTimeFormatter dtf1 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		LocalDateTime now1 = LocalDateTime.now();
 		String time = dtf1.format(now1);
@@ -48,7 +55,14 @@ public class ToDoController {
 		System.out.println("User::::::::::::::::::::::::::::::::::;" +email);
 		int id = userService.findByEmail(email).getId();
 		List<ToDo> todo = toDoServices.findByuser(id, page);
-		
+		for(ToDo t:todo)
+		{
+			if(t.getStartDate().compareTo(time)<=0&&t.getStatus().equals("New1"))
+			{
+				t.setStatus("New2");
+				toDoServices.updateToDo(t);
+			}
+		}
 		int num= (int)toDoServices.getNumberPage(id);
 		int i = 0;
 		if(page>1)

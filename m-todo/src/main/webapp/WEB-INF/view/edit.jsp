@@ -9,28 +9,7 @@
 <link rel="stylesheet"
 	href="<spring:url value='/resources/css/app.css'/>">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-<style>
-.center {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	margin-right: -50%;
-	transform: translate(-50%, -50%)
-}
-
-th {
-	padding: 5px;
-	text-align: right;
-}
-
-input {
-	border: none;
-	background: transparent;
-	border-bottom: 2px dotted black;
-}
-</style>
-
+<title>Edit</title>
 </head>
 <body>
 	<div class="center">

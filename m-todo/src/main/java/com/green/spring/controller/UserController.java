@@ -37,6 +37,10 @@ public class UserController {
 	@RequestMapping(method = RequestMethod.GET)
 	public String user(@ModelAttribute("email") String email, Model model) throws ParseException {
 
+		if(email.equals("null"))
+		{
+			return "redirect:/login"; 
+		}
 		User users = userService.findByEmail(email);
 		UserModel userLogin = new UserModel();
 		userLogin.formUser(users);
@@ -50,7 +54,7 @@ public class UserController {
 
 		if (file.isEmpty()) {
 			redirectAttributes.addFlashAttribute("message", "Please select a file to upload");
-			return "redirect:uploadStatus";
+			return "redirect:/user";
 		}
 
 		try {
@@ -66,7 +70,7 @@ public class UserController {
 			e.printStackTrace();
 		}
 
-		user.setAvatar(file.getName());
+		user.setAvatar(file.getOriginalFilename());
 		userService.updateUser(user);
 
 		return "redirect:/user";
@@ -80,7 +84,7 @@ public class UserController {
 		for (MultipartFile file : files) {
 
 			if (file.isEmpty()) {
-				continue; // next pls
+				continue;
 			}
 
 			try {

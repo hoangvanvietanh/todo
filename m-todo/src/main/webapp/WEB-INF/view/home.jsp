@@ -7,75 +7,28 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Todo</title>
 <link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<style type="text/css">
-.input {
-	border: none;
-	background: none;
-	height: 20px;
-}
-
-.d {
-	width: 100%;
-	hight: 500px;
-}
-
-.b {
-	float: left;
-}
-
-.r {
-	float: right;
-}
-
-.center {
-	margin: auto;
-	width: 20%;
-	padding: 10px;
-}
-
-.New1 {
-	background: white;
-}
-
-.New2 {
-	background: #CD853F;
-}
-
-.Done {
-	background: #FFD700;
-}
-
-.In-progress {
-	background: #00FFFF;
-}
-
-.Canceled {
-	background: #A52A2A;
-}
-</style>
+	href="<spring:url value='/resources/css/bootstrap.min.css'/>">
+<link rel="stylesheet"
+	href="<spring:url value='/resources/css/home.css'/>">
 </head>
 <body>
+	<form:errors path="*" cssClass="error-box" />
 	<button type="button"
 		onclick="window.location.href='<spring:url value="/todo/create" />'">Create</button>
 	<button type="button"
-		onclick="window.location.href='<spring:url value="/login" />'">Logout</button>
+		onclick="window.location.href='<spring:url value="/logout" />'">Logout</button>
 	<table class="table">
 		<thead>
 			<tr>
-				<th>No.</th>
-				<th>Name</th>
-				<th>Status</th>
-				<th>Start Date</th>
-				<th>Started At</th>
-				<th>Ended At</th>
-				<th>Actions</th>
+				<th style="width: 1%">No.</th>
+				<th style="width: 15%">Name</th>
+				<th style="width: 10%">Status</th>
+				<th style="width: 10%">Start Date</th>
+				<th style="width: 10%">Started At</th>
+				<th style="width: 10%">Ended At</th>
+				<th style="width: 15%">Actions</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -86,7 +39,7 @@
 					<td>${todo.status}</td>
 					<td>${todo.startDate}</td>
 					<td>${todo.startedAt}</td>
-					<td>${todo.endedAt }</td>
+					<td>${todo.endedAt}</td>
 					<td><c:if test="${todo.status eq 'New2' }">
 							<form action="todo/start" method="post">
 								<input type="hidden" name="id" value="${todo.id}"> <input

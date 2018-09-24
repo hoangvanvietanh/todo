@@ -1,0 +1,45 @@
+@charset "UTF-8";
+.input {
+	border: none;
+	background: none;
+	height: 20px;
+}
+
+.d {
+	width: 100%;
+	hight: 500px;
+}
+
+.b {
+	float: left;
+}
+
+.r {
+	float: right;
+}
+
+.center {
+	margin: auto;
+	width: 20%;
+	padding: 10px;
+}
+
+.New1 {
+	background: white;
+}
+
+.New2 {
+	background: #CD853F;
+}
+
+.Done {
+	background: #FFD700;
+}
+
+.In-progress {
+	background: #00FFFF;
+}
+
+.Canceled {
+	background: #A52A2A;
+}
