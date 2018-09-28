@@ -14,20 +14,28 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.13.1/jquery.validate.min.js"></script>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1" />
+<style type="text/css">
+#mydiv {
+	position: fixed;
+	top: 10%;
+	left: 35%;
+}
+</style>
 <title>Login</title>
 </head>
 <body>
-	<div class="text-center" style="padding: 50px 0">
-		<div class="logo">register</div>
+	<div id="mydiv" class="text-center" style="padding: 50px 0">
+		<div class="logo">Register</div>
 		<!-- Main Form -->
 		<div class="login-form-1">
-			<form id="register-form" class="text-left" action="sign-up" method="post">
+			<form id="register-form" class="text-left" action="sign-up"
+				method="post">
 				<div class="login-form-main-message"></div>
 				<div class="main-login-form">
 					<div class="login-group">
 						<div class="form-group">
-							<label for="reg_username" class="sr-only">Email address</label>
-							<input type="text" class="form-control" name="email"
+							<label for="reg_username" class="sr-only">Email address</label> <input
+								type="text" class="form-control" name="email"
 								placeholder="username" />
 						</div>
 						<div class="form-group">
@@ -41,13 +49,15 @@
 								name="re_pass" placeholder="confirm password">
 						</div>
 					</div>
+					<input type="hidden" name="${_csrf.parameterName}"
+						value="${_csrf.token}" />
 					<button type="submit" class="login-button">
 						<i class="fa fa-chevron-right">Go</i>
 					</button>
 				</div>
 				<div class="etc-login-form">
 					<p>
-						already have an account? <a href="#">login here</a>
+						already have an account? <a href="<spring:url value='/login'/>">login here</a>
 					</p>
 				</div>
 			</form>

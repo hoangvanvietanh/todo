@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -47,7 +48,8 @@ public class SignUpController {
 				{
 					User user = new User();
 					user.setEmail(email);
-					user.setPassword(pass);
+					BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+					user.setPassword(passwordEncoder.encode(pass));
 					userService.createUser(user);
 					return "redirect:/login";
 				}

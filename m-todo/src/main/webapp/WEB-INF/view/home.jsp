@@ -17,7 +17,7 @@
 
 	<form action="todo">
 		<div>
-			<div class="b">Name </div>
+			<div class="b">Name</div>
 			<input type="hidden" name="id" value="${id}">
 			<div class="b">
 				<input type="text" name="name">
@@ -56,7 +56,9 @@
 					<td><c:if test="${todo.status eq 'New2' }">
 							<form action="todo/start" method="post">
 								<input type="hidden" name="id" value="${todo.id}"> <input
-									type="hidden" name="number" value="${page3}">
+									type="hidden" name="number" value="${page3}"> <input
+									type="hidden" name="${_csrf.parameterName}"
+									value="${_csrf.token}" />
 								<div class="b">
 									<button class="input" type="submit">Start</button>
 								</div>
@@ -64,7 +66,9 @@
 						</c:if> <c:if test="${todo.status eq 'New2'}">
 							<form action="todo/cancel" method="post">
 								<input type="hidden" name="id" value="${todo.id}"> <input
-									type="hidden" name="number" value="${page3}">
+									type="hidden" name="number" value="${page3}"> <input
+									type="hidden" name="${_csrf.parameterName}"
+									value="${_csrf.token}" />
 								<div class="b">
 									<button class="input" type="submit">Cancel</button>
 								</div>
@@ -72,7 +76,9 @@
 						</c:if> <c:if test="${todo.status eq 'In-progress' }">
 							<form action="todo/end" method="post">
 								<input type="hidden" name="id" value="${todo.id}"> <input
-									type="hidden" name="number" value="${page3}">
+									type="hidden" name="number" value="${page3}"> <input
+									type="hidden" name="${_csrf.parameterName}"
+									value="${_csrf.token}" />
 								<div class="b">
 									<button class="input" type="submit">End</button>
 								</div>
@@ -81,7 +87,9 @@
 							test="${todo.status eq 'New1' or todo.status eq 'New2' or todo.status eq 'In-progress' or todo.status eq 'Done'or todo.status eq 'Canceled'}">
 							<form action="todo/view" method="get">
 								<input type="hidden" name="id" value="${todo.id}"> <input
-									type="hidden" name="number" value="${page3}">
+									type="hidden" name="number" value="${page3}"> <input
+									type="hidden" name="${_csrf.parameterName}"
+									value="${_csrf.token}" />
 								<div class="b">
 									<button class="input" type="submit">View</button>
 								</div>
@@ -89,7 +97,9 @@
 						</c:if> <c:if test="${todo.status eq 'New1'}">
 							<form action="todo/edit" method="get">
 								<input type="hidden" name="id" value="${todo.id}"> <input
-									type="hidden" name="number" value="${page3}">
+									type="hidden" name="number" value="${page3}"> <input
+									type="hidden" name="${_csrf.parameterName}"
+									value="${_csrf.token}" />
 								<div class="b">
 									<button class="input" type="submit">Edit</button>
 								</div>
@@ -98,7 +108,9 @@
 							test="${todo.status eq 'New1' or todo.status eq 'New2' or todo.status eq 'Canceled'}">
 							<form action="todo/delete" method="post">
 								<input type="hidden" name="id" value="${todo.id}"> <input
-									type="hidden" name="number" value="${page3}">
+									type="hidden" name="number" value="${page3}"> <input
+									type="hidden" name="${_csrf.parameterName}"
+									value="${_csrf.token}" />
 								<div class="b">
 									<button class="input" type="submit">Delete</button>
 								</div>

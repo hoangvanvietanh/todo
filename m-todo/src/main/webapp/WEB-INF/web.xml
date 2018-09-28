@@ -3,13 +3,5 @@
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
-	<display-name>500</display-name>
-	<error-page>
-		<error-code>500</error-code>
-		<location>/WEB-INF/view/error.jsp</location>
-	</error-page>
-	<error-page>
-		<error-code>404</error-code>
-		<location>/WEB-INF/view/error.jsp</location>
-	</error-page>
+
 </web-app>

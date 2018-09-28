@@ -26,11 +26,11 @@ public class UserService {
 	public User findUser(int id) {
 		return userDAO.find(id);
 	}
-	@ModelAttribute("user")
+
 	public User user() {
 		return new User();
 	}
-	@ModelAttribute("findByEmail")
+	
 	public User findByEmail(String email) {
 		return userDAO.findByEmail(email);
 	}
@@ -39,21 +39,6 @@ public class UserService {
 		 for(User u:user)
 		 {
 			 if(u.getEmail().equals(email))
-			 {
-				 return true;
-			 }
-		 }		
-		return false;
-	}
-	public Boolean checkLogin(String email, String pass) {
-		if(checkEmail(email)==false)
-		{
-			return false;
-		}
-		 List<User> user = findAll();
-		 for(User u:user)
-		 {
-			 if(u.getEmail().equals(email)&&u.getPassword().equals(pass))
 			 {
 				 return true;
 			 }

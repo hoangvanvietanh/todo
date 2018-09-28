@@ -66,7 +66,7 @@ public class WebConfig implements WebMvcConfigurer {
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
 		dataSource.setUrl("jdbc:mysql://localhost:3306/m-todo");
 		dataSource.setUsername("hoangvanvietanh");
-		dataSource.setPassword("Vietanh123");
+		dataSource.setPassword("VietAnh123");
 		return dataSource;
 	}
 
