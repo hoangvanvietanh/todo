@@ -36,7 +36,8 @@ public class LoginController {
 			return "login";
 		}
 		model.put("email", authentication.getName());
-		return "redirect:/user";
+		//return "redirect:/user";
+		return "redirect:/messages";
 	}
 	
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
