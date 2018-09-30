@@ -45,7 +45,8 @@ public class ToDoController {
 		LocalDateTime now1 = LocalDateTime.now();
 		String time = dtf1.format(now1);
 		
-		int id = userService.findByEmail(userService.getEmailUser()).getId();
+		User user = userService.findByEmail(userService.getEmailUser());
+		int id= user.getId();
 		List<ToDo> todo = toDoServices.findByuser(id, page, name);
 		for(ToDo t:todo)
 		{
@@ -61,6 +62,7 @@ public class ToDoController {
 		{
 			i =(int)(10*page)-10;
 		}
+		model.addAttribute("user", user);
 		model.addAttribute("time", time);
 		model.addAttribute("page", page);
 		model.addAttribute("page2", page);
