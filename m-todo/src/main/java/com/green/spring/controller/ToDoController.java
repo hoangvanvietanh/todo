@@ -10,6 +10,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,7 +30,6 @@ import com.green.spring.service.UserService;
 import net.bytebuddy.implementation.bytecode.constant.DefaultValue;
 
 @Controller
-@SessionAttributes("email")
 @RequestMapping("/todo")
 public class ToDoController {
 	@Autowired
@@ -37,18 +38,14 @@ public class ToDoController {
 	private UserService userService;
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public String list(@RequestParam(name="numberPage", defaultValue="1") int page,@ModelAttribute("email") String email, BindingResult result, Model model,
-			@ModelAttribute("name") String name,RedirectAttributes redirectAttributes,HttpServletRequest req) {
-		if(email.equals("null"))
-		{
-			return "redirect:/login"; 
-		}
+	public String list(@RequestParam(name="numberPage", defaultValue="1") int page, @ModelAttribute("name") String name,BindingResult result, Model model,
+			RedirectAttributes redirectAttributes,HttpServletRequest req) {
 		System.out.println("Ban vua nhap:::::::::::::::::::::::::::::::::::::::::::::::: |" + name+"|");
 		DateTimeFormatter dtf1 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		LocalDateTime now1 = LocalDateTime.now();
 		String time = dtf1.format(now1);
 		
-		int id = userService.findByEmail(email).getId();
+		int id = userService.findByEmail(userService.getEmailUser()).getId();
 		List<ToDo> todo = toDoServices.findByuser(id, page, name);
 		for(ToDo t:todo)
 		{
@@ -86,11 +83,11 @@ public class ToDoController {
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public String handleCreate(@ModelAttribute("todo") ToDoModel todo, BindingResult result, Model model,
-			@ModelAttribute("email") String email, RedirectAttributes redirectAttributes) throws ParseException {
+			 RedirectAttributes redirectAttributes) throws ParseException {
 		if (result.hasErrors()) {
 			return "create";
 		}
-		User user = userService.findByEmail(email);
+		User user = userService.findByEmail(userService.getEmailUser());
 		ToDo t = todo.toToDo();
 		t.setUser(user);
 		toDoServices.createToDo(t);
@@ -123,7 +120,7 @@ public class ToDoController {
 	}
 
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public String handleUpdate(@RequestParam(name = "id") int id,@ModelAttribute("email") String email, @ModelAttribute("todo") ToDo todo,
+	public String handleUpdate(@RequestParam(name = "id") int id, @ModelAttribute("todo") ToDo todo,
 			BindingResult result, Model model) throws ParseException {
 
 		DateTimeFormatter dtf1 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -135,7 +132,7 @@ public class ToDoController {
 		Date date2 = sdf1.parse(time1);
 		todo.setCreatedAt(time1);
 
-		User user = userService.findByEmail(email);
+		User user = userService.findByEmail(userService.getEmailUser());
 		todo.setUser(user);
 		if (date1.compareTo(date2) > 0) {
 			todo.setStatus("New1");
@@ -247,7 +244,7 @@ public class ToDoController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
-	public String handleEdit(@RequestParam(name = "id") int id, @ModelAttribute("email") String email,@RequestParam(name="number") int page,@ModelAttribute("todo") ToDo todo,
+	public String handleEdit(@RequestParam(name = "id") int id,@RequestParam(name="number") int page,@ModelAttribute("todo") ToDo todo,
 			 BindingResult result, Model model) throws ParseException {
 		DateTimeFormatter dtf1 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		LocalDateTime now1 = LocalDateTime.now();
@@ -263,7 +260,7 @@ public class ToDoController {
 		} else {
 			todo.setStatus("New2");
 		}
-		User user = userService.findByEmail(email);
+		User user = userService.findByEmail(userService.getEmailUser());
 		todo.setUser(user);
 		toDoServices.updateToDo(todo);
 

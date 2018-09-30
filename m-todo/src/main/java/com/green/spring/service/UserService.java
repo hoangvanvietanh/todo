@@ -3,6 +3,8 @@ package com.green.spring.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
@@ -54,5 +56,10 @@ public class UserService {
 	public User deleteUser(User user) {
 		User result = userDAO.delete(user);
 		return result;
+	}
+	public String getEmailUser()
+	{
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		return authentication.getName();
 	}
 }

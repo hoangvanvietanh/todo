@@ -21,7 +21,7 @@ import com.green.spring.service.ToDoServices;
 import com.green.spring.service.UserService;
 
 @Controller
-@SessionAttributes("email")
+@SessionAttributes("idFriend")
 @RequestMapping("/messages")
 public class MessagesController {
 	@Autowired
@@ -31,23 +31,22 @@ public class MessagesController {
 	private MessagesServices messService;
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public String list(@ModelAttribute("email") String email, Model model) {
+	public String list(@ModelAttribute("idFriend") int idF, Model model) {
 
-		User user = userService.findByEmail(email);
+		User user = userService.findByEmail(userService.getEmailUser());
 		int id = user.getId();
 		String name = user.getName();
 		
-		List<Messages> mes = messService.findByUser(id, 3);
+		List<Messages> mes = messService.findByUser(id, idF);
 		model.addAttribute("mes", mes);
 		model.addAttribute("name", name);
-		//model.addAttribute("name2", "vietem");
 		return "messages";
 	}
 	@RequestMapping(method = RequestMethod.POST)
-	public String sendMess(@ModelAttribute("mess") String mess, @ModelAttribute("email") String email,Model model) {
+	public String sendMess(@ModelAttribute("mess") String mess,@ModelAttribute("idFriend") int idF ,Model model) {
 		Messages messenger = new Messages();
-		messenger.setUser1(userService.findByEmail(email));
-		messenger.setUser2(userService.findUser(3));
+		messenger.setUser1(userService.findByEmail(userService.getEmailUser()));
+		messenger.setUser2(userService.findUser(idF));
 		messenger.setMessages(mess);
 		messService.createMess(messenger);
 		

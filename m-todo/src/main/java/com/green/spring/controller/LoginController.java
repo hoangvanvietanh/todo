@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
-@SessionAttributes("email")
 @RequestMapping("/")
 public class LoginController {
 	@Autowired
@@ -35,9 +34,9 @@ public class LoginController {
 			System.out.println("vao if");
 			return "login";
 		}
-		model.put("email", authentication.getName());
-		//return "redirect:/user";
-		return "redirect:/messages";
+		return "redirect:/user";
+		//return "redirect:/messages";
+		//return "redirect:/friends";
 	}
 	
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)

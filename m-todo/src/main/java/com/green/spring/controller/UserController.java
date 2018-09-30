@@ -41,7 +41,6 @@ import com.green.spring.service.UserService;
 import utils.Constants;
 
 @Controller
-@SessionAttributes("email")
 @RequestMapping("/user")
 public class UserController {
 	@Autowired
@@ -50,13 +49,8 @@ public class UserController {
 	private static String UPLOADED_FOLDER = "/home/hoangvanvietanh/uploadFile//";
 
 	@RequestMapping(method = RequestMethod.GET)
-	public String user(@ModelAttribute("email") String email, Model model) throws ParseException {
-
-		if(email.equals("null"))
-		{
-			return "redirect:/login"; 
-		}
-		User users = userService.findByEmail(email);
+	public String user(Model model) throws ParseException {
+		User users = userService.findByEmail(userService.getEmailUser());
 		UserModel userLogin = new UserModel();
 		userLogin.formUser(users);
 		model.addAttribute("user", userLogin);
@@ -65,7 +59,7 @@ public class UserController {
 
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public String singleFileUpload(@RequestParam("file") MultipartFile file, @ModelAttribute(name = "user") User user,
-			@ModelAttribute("email") String email, Model model, RedirectAttributes redirectAttributes) {
+			 Model model, RedirectAttributes redirectAttributes) {
 
 		if (file.isEmpty()) {
 			redirectAttributes.addFlashAttribute("message", "Please select a file to upload");
@@ -139,10 +133,10 @@ public class UserController {
 
 	//Download image
 	@RequestMapping(value="/avatar/{email}", method = RequestMethod.GET)
-    public void downloadAvatar(HttpServletResponse response, @PathVariable("email") String email) throws IOException {
+    public void downloadAvatar(HttpServletResponse response) throws IOException {
      
     	// get Contact form DB
-    	User contact = userService.findByEmail(email);
+    	User contact = userService.findByEmail(userService.getEmailUser());
     	
     	if (contact == null) {
     		return; // no contact found

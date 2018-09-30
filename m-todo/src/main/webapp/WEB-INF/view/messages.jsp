@@ -23,22 +23,35 @@
 </head>
 <body>
 	<div class="center">
-
-		<c:forEach var="mes" items="${mes}">
-			<c:if test="${mes.user1.name eq name}">
-				<div>${mes.user1.name}</div>
-			</c:if>
-
-			<c:if test="${mes.user2.name eq name}">
-				<div>${mes.user1.name}</div>
-			</c:if>
-			<div>${mes.messages}</div>
-		</c:forEach>
 		<form action="messages" method="post">
+			<c:forEach var="mes" items="${mes}">
+				<c:if test="${mes.user1.name eq name}">
+					<div>${mes.user1.name}</div>
+				</c:if>
+
+				<c:if test="${mes.user2.name eq name}">
+					<div>${mes.user1.name}</div>
+				</c:if>
+				<div>${mes.messages}</div>
+				<input type="hidden" name="id2" value="${mes.user2.id}">
+			</c:forEach>
+
 			<input type="text" name="mess"> <input type="hidden"
 				name="${_csrf.parameterName}" value="${_csrf.token}" />
+
 			<button type="submit">Send</button>
 		</form>
+	</div>
+	<div style="float: right;">
+		<h4>List friends</h4>
+		<c:forEach var="friend" items="${friend}">
+			<form action="friends" method="post">
+				<input type="hidden" name="${_csrf.parameterName}"
+					value="${_csrf.token}" />
+				<button type="submit" name="idFriends" value="${friend.user2.id}">${friend.user2.name}</button>
+			</form>
+			<div></div>
+		</c:forEach>
 	</div>
 </body>
 </html>
