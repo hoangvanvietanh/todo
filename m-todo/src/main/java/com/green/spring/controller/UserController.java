@@ -53,8 +53,6 @@ public class UserController {
 	@Autowired
 	private FriendsServices friendsServices;
 
-	private static String UPLOADED_FOLDER = "/home/hoangvanvietanh/uploadFile//";
-
 	@RequestMapping(method = RequestMethod.GET)
 	public String user(Model model) throws ParseException {
 		List<Friends> friend = friendsServices
@@ -81,7 +79,7 @@ public class UserController {
 			try {
 
 				byte[] bytes = file.getBytes();
-				Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
+				Path path = Paths.get(Constants.UPLOAD_FOLDER + file.getOriginalFilename());
 				Files.write(path, bytes);
 
 				redirectAttributes.addFlashAttribute("message",
@@ -118,7 +116,7 @@ public class UserController {
 			try {
 
 				byte[] bytes = file.getBytes();
-				Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
+				Path path = Paths.get(Constants.UPLOAD_FOLDER + file.getOriginalFilename());
 				Files.write(path, bytes);
 
 				sj.add(file.getOriginalFilename());
