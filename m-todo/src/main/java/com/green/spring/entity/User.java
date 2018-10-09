@@ -2,6 +2,7 @@ package com.green.spring.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -9,6 +10,7 @@ import javax.persistence.Table;
 @Table(name="user")
 public class User {
 	@Id
+	@GeneratedValue
 	@Column(name="iduser")
 	private int id;
 	@Column(name="email")

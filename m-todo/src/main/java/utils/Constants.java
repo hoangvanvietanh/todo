@@ -5,6 +5,6 @@ public class Constants {
 	public static final String UPDATE = "update";
 	public static final String DELETE = "delete";
 	
-	//public static final String UPLOAD_FOLDER = "/home/hoangvanvietanh/uploadFile//";
-	public static final String UPLOAD_FOLDER = "D:/HoangVanVietAnh/uploadFile";
+	public static final String UPLOAD_FOLDER = "/home/hoangvanvietanh/uploadFile//";
+	//public static final String UPLOAD_FOLDER = "D:/HoangVanVietAnh/uploadFile";
 }
